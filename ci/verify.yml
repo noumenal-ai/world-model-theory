@@ -1,0 +1,52 @@
+# World-Model Theory — site/corpus verification (public repo)
+#
+# PLACEMENT: move to `.github/workflows/verify.yml`. (Pushing files under
+# .github/workflows/ needs a token with `workflow` scope — add this file via
+# GitHub's web editor if your CLI token lacks it.)
+#
+# The site's "Verify" button pretty-prints the verification.json this produces.
+# It checks, literally and on every dispatch, that:
+#   • every theorem handle printed on the site resolves to real source in-repo
+#   • none of the cited modules contain sorry / admit / native_decide
+# The full Lean build + `#print axioms` audit run in the canonical monorepo
+# (Mathlib · PhysLean · TorchLean) and are attested here.
+name: verify
+
+on:
+  push:
+    paths: ['docs/**', 'WMSpec/**', 'TLT_Proofs/**', 'ci/**', '.github/workflows/verify.yml']
+  workflow_dispatch: {}          # <- manual action dispatch (the "Run workflow" button)
+  schedule:
+    - cron: '0 6 * * 1'          # weekly re-verify
+
+permissions:
+  contents: write                # to commit the refreshed docs/verification.json
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run verification (chips + sorry, from the site's own citations)
+        run: |
+          chmod +x ci/verify.sh
+          ci/verify.sh docs/verification.json   # exits non-zero if any handle fails to resolve
+
+      - name: Commit refreshed result
+        run: |
+          git config user.name  "verify-bot"
+          git config user.email "verify-bot@users.noreply.github.com"
+          git add docs/verification.json
+          git commit -m "ci: refresh verification.json [skip ci]" || echo "no change"
+          git push || echo "nothing to push"
+
+      - name: Upload result artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification
+          path: docs/verification.json

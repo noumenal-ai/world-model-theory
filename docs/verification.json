@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "generatedBy": "local",
+  "repo": "",
+  "workflow": "verify.yml",
+  "commit": "local",
+  "timestamp": "2026-07-02T22:31:06Z",
+  "runUrl": "",
+  "status": "pass",
+  "checks": [
+    { "id": "chips",  "label": "Every cited theorem handle resolves", "status": "pass", "detail": "63 / 63 handles resolve to real declarations" },
+    { "id": "sorry",  "label": "No sorry / admit / native_decide", "status": "pass", "detail": "clean across 17 cited modules" },
+    { "id": "build",  "label": "lake build (clean compile)", "status": "attested", "detail": "compiles clean in the canonical Lean build (Mathlib · PhysLean · TorchLean)" },
+    { "id": "axioms", "label": "Axiom footprint", "status": "attested", "detail": "depends only on propext, Classical.choice, Quot.sound (canonical build)" }
+  ],
+  "chips": { "total": 63, "resolved": 63, "missing": [  ] },
+  "modules": 17
+}

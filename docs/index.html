@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noumenal Research — World-Model Theory</title>
+    <meta name="description" content="A specification theory of world models: declare the targets, the readout budget, and the dynamics, and the mathematics forces which latent representation is admissible. Every result machine-checked in Lean 4.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a class="wordmark" href="#top">Noumenal Research <span>· World-Model Theory</span></a>
+        <div class="topbar-right">
+          <nav class="topnav" aria-label="Sections">
+            <a href="#spec">Specification</a>
+            <a href="#boundaries">Boundaries</a>
+            <a href="#calculus">Calculus</a>
+            <a href="#forcing">Forcing</a>
+            <a href="#metric">Metric</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#executable">Executable</a>
+            <a href="#consequences">Consequences</a>
+            <a href="paper/wmspec_v1.pdf">Paper</a>
+          </nav>
+          <button class="verify-chip" id="verifyBtn" type="button"
+                  aria-haspopup="dialog" aria-expanded="false" aria-controls="verifyPanel">
+            <span class="vdot v-pending"></span><span class="vlabel">Verify</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- machine-verification panel (filled from verification.json by verify.js) -->
+    <div id="verifyPanel" role="dialog" aria-modal="true" aria-label="Machine verification" hidden>
+      <div class="vcard">
+        <button class="vclose" type="button" aria-label="Close">&times;</button>
+        <h3>Machine verification</h3>
+        <div class="vbody"></div>
+      </div>
+    </div>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="shell">
+          <p class="kicker">Noumenal Research · Machine-checked world-model theory</p>
+          <h1 class="measure">A representation is a world model only when the mathematics says it is.</h1>
+          <p class="lede">
+            We give the phrase <strong>world model</strong> a definition that can be checked.
+            Declare what a latent is <em>for</em> — the target quantities, the readout budget, and
+            the dynamics it must respect — and the theory determines which distinctions the latent
+            must keep, which transitions can descend to it, and which representation is forced.
+            Every claim on this site is a theorem in Lean&nbsp;4, checked by the proof kernel,
+            with the axioms it rests on named in full.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#spec">Read the theory</a>
+            <a class="btn" href="paper/wmspec_v1.pdf">Paper (PDF)</a>
+          </div>
+          <div class="factline">
+            <div class="fact"><strong>3</strong><span>obligations define the specification</span></div>
+            <div class="fact"><strong>5</strong><span>levels, from readout to architecture</span></div>
+            <div class="fact"><strong>0</strong><span>sorry, no added axioms</span></div>
+            <div class="fact"><strong>iff</strong><span>characterizations, not one-sided bounds</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 1 — THE SPECIFICATION ============ -->
+      <section id="spec">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The specification</p>
+            <h2>&ldquo;World model&rdquo; becomes a checkable claim.</h2>
+            <p>
+              A representation <code>E : S → Z</code> is not a world model in isolation. It is a
+              world model <em>relative to</em> three declarations: a target family
+              <code>𝒯</code> (the quantities it is accountable for), a readout budget
+              <code>L</code> (how a downstream head is allowed to read it), and a dynamics law
+              <code>P</code> (how the environment evolves). Fix those, and the claim is decidable:
+              change the targets or the budget and the answer can flip. The specification is the
+              conjunction of three obligations, each of which we prove is an exact criterion — an
+              impossibility on one side, a construction on the other.
+            </p>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Obligation 1 · Readout</span>
+              <h3>The targets must remain readable.</h3>
+              <p>
+                Two states the targets tell apart, the encoder must tell apart. In the quantitative
+                form, latent distance must <em>price</em> target gaps at the declared budget — and
+                this is not merely necessary. A budget-<code>L</code> readout of a target exists
+                <em>exactly when</em> the latent metric dominates that target&rsquo;s gaps.
+              </p>
+              <div class="formal">|T s₁ − T s₂| ≤ L · d(E s₁, E s₂)&nbsp;&nbsp;⟺&nbsp;&nbsp;∃ g, LipschitzWith L g ∧ T = g ∘ E</div>
+              <div class="handles">
+                <code>lipschitz_readout_iff</code>
+                <code>no_lipschitz_readout_iff</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Obligation 2 · Dynamics</span>
+              <h3>A transition law must exist at all.</h3>
+              <p>
+                The encoder&rsquo;s fibers must be a congruence for the dynamics. If two states map
+                to the same latent but evolve to distinguishable futures, no map on the latent
+                space reproduces the environment&rsquo;s step — the representation has no
+                well-defined transition law, however useful it looks under a proxy objective.
+              </p>
+              <div class="formal">(∃ latent step) ⟺ ker E is a P-congruence — on the oscillator, ⟺ sin(ωt) = 0</div>
+              <div class="handles">
+                <code>latentKernel_iff_congruence</code>
+                <code>positionLatent_dynamics_iff_stroboscopic</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Obligation 3 · Quotient</span>
+              <h3>The admissible representation is forced.</h3>
+              <p>
+                Among all representations meeting the first two obligations, there is a greatest
+                one: the coarsest conforming quotient, which the theory computes as the
+                bisimulation quotient of the state space relative to the declared targets and
+                dynamics. A world model does not choose an arbitrary hidden vector; it refines this
+                canonical object.
+              </p>
+              <div class="formal">E is a world model ⟺ ker E conforms&nbsp;&nbsp;·&nbsp;&nbsp;S / ≈ satisfies the specification</div>
+              <div class="handles">
+                <code>isWorldModel_iff_ker_isConforming</code>
+                <code>isWorldModel_quotientMk_bisimilarity</code>
+              </div>
+            </article>
+          </div>
+
+          <div class="callout">
+            <p>The consequence for how models are claimed.</p>
+            <p>
+              &ldquo;This network is a world model&rdquo; is not true or false until the target
+              family and readout budget are named. Stated without them, it is unevaluable. Every
+              result that follows is relative to a declaration, and several of them show precisely
+              how the verdict moves as the declaration changes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 2 — THE NEGATIVE LAYER ============ -->
+      <section class="tint" id="boundaries">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Where the specification bites</p>
+            <h2>One obstruction governs every way a latent fails.</h2>
+            <p>
+              The obligations are not wishes; each is the flip side of a proved impossibility.
+              A single lemma drives all of them: when an encoder is invariant under a
+              transformation that <em>moves</em> a target, the target is gone from the latent for
+              good, and no downstream head recovers it. Its quantitative form turns exact collapse
+              into a distance bound, and its cleanest instances are read off machine-checked
+              physics, not toy constructions.
+            </p>
+          </div>
+
+          <div class="lead-claim">
+            <h3>The mismatch lemma.</h3>
+            <p>
+              If the encoder treats a transformation <code>b</code> as noise
+              (<code>E ∘ b = E</code>) while some target reads it as signal
+              (<code>T a ≠ T (b a)</code>), then no readout <code>g</code> of the latent equals the
+              target. The failure is total: it holds for readouts of any regularity, and it needs
+              no probability, no architecture, and no training assumption.
+            </p>
+            <div class="formal">E ∘ b = E&nbsp;&nbsp;∧&nbsp;&nbsp;T a ≠ T (b a)&nbsp;&nbsp;⟹&nbsp;&nbsp;¬ ∃ g, T = g ∘ E</div>
+            <div class="handles">
+              <code>not_factorThrough_of_collapse</code>
+              <code>not_factorThrough_of_invariance</code>
+              <code>approx_lipschitz_ineq</code>
+            </div>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Instance · Conservation</span>
+              <h3>A conserved quantity becomes unrecoverable.</h3>
+              <p>
+                Take the harmonic oscillator&rsquo;s energy — conserved by a theorem, not by
+                assumption. A position-only latent identifies two states of equal position and
+                different velocity. Their energies differ, so no function of that latent computes
+                the energy of the motion.
+              </p>
+              <div class="formal">E⟨x₀, 0⟩ = E⟨x₀, v⟩,&nbsp; energy differs&nbsp; ⟹&nbsp; energy is not readable</div>
+              <div class="handles">
+                <code>energy_not_recoverable_from_position</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Instance · Geometry</span>
+              <h3>Physics sets a floor on latent distance.</h3>
+              <p>
+                If a latent is to admit even an <code>L</code>-Lipschitz reading of that conserved
+                energy, its geometry must pay for it: the two collapsed states must sit apart in
+                latent space by at least the energy gap over the budget. Faithful representation is
+                priced by the physics.
+              </p>
+              <div class="formal">½ m ‖v‖² ≤ L · d(E⟨x₀, 0⟩, E⟨x₀, v⟩)</div>
+              <div class="handles">
+                <code>worldModel_latent_geometry_bound</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Instance · Dynamics</span>
+              <h3>No transition law off the sampling times.</h3>
+              <p>
+                For the same latent under the true oscillator flow, a latent transition map exists
+                only at half-period horizons; at every other horizon there is none. A model that
+                looks predictive because it was sampled on the beat has, in fact, no dynamics law
+                between the beats.
+              </p>
+              <div class="formal">(∃ latent step at horizon t)&nbsp; ⟺&nbsp; sin(ω t) = 0</div>
+              <div class="handles">
+                <code>positionLatent_dynamics_iff_stroboscopic</code>
+                <code>no_positionLatent_dynamics_of_nonstroboscopic</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>The physics is not decorative.</strong> Every instance above is stated against
+            a fully formalized harmonic oscillator, with the conservation law and the solution flow
+            proved in the kernel — so &ldquo;the latent loses energy&rdquo; is a theorem about the
+            genuine physical quantity, not a themed analogy. The same shape appears in evaluation:
+            in a companion development, a planner that grades success by distance in its own latent
+            reports near-perfect achievement (about 0.98) while its true progress to the goal barely
+            tracks it (correlation about 0.30) — the measurable shadow of a latent that scores
+            itself in a geometry from which the goal-relevant direction has already been shed.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 3 — THE CALCULUS OF OBJECTIVES ============ -->
+      <section id="calculus">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The calculus of objectives</p>
+            <h2>An objective fixes what it can never see, before training starts.</h2>
+            <p>
+              Every training objective carries an invariance class: the transformations of the
+              data whose effect it cannot register. That class is decided by the loss, the mask,
+              and the guards — by the design, not the optimizer, the scale, or the data. Anything
+              inside it is invisible to every readout of the objective and to every statistical
+              test built from it, so a proxy can pass in full while the quantity it is cited for
+              sits provably out of reach. The theory turns this into an algebra: how invariance
+              composes, how a mask narrows it, and how a matched objective repairs it, with the
+              cost of repair stated exactly.
+            </p>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Law · Blindness</span>
+              <h3>Invisible to the loss means invisible to every test.</h3>
+              <p>
+                If a transformation leaves the loss value unchanged, it also leaves unchanged every
+                Boolean test computed from that loss — even after the data distribution is shifted
+                by that very transformation. Passing such a proxy carries no evidence about the
+                hidden quantity; the objective assigned it zero power in advance.
+              </p>
+              <div class="formal">L θ (b a) m = L θ a m&nbsp; ⟹&nbsp; every loss-built test agrees on P and on b&#35;P</div>
+              <div class="handles">
+                <code>objective_blindness</code>
+                <code>not_factorThrough_loss_of_invariance</code>
+                <code>blind_tests_zero_power</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Law · Masking</span>
+              <h3>The mask decides the reach.</h3>
+              <p>
+                The transformations an objective cannot distinguish form a monoid, and a masked
+                objective&rsquo;s class is the intersection of the classes over its masks. Whatever a
+                mask leaves unselected, the objective cannot police — a precise form of the
+                intuition that a predictive mask both grants and bounds what a model is accountable
+                for.
+              </p>
+              <div class="formal">G(L) = &#8851;&#8202;<sub>m</sub> G(L, m)&nbsp;&nbsp;(a submonoid of transformations)</div>
+              <div class="handles">
+                <code>invarianceMonoid</code>
+                <code>invarianceMonoid_eq_iInf</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Law · Repair</span>
+              <h3>One guard per broken symmetry, and no more.</h3>
+              <p>
+                A matched objective — prediction plus a guard for each symmetry it must not ignore
+                — recovers the full invariance class. The separation is unconditional at the
+                prediction/guard boundary; additional structure is required only to tell guards
+                apart from one another, exactly where it is needed and nowhere else.
+              </p>
+              <div class="formal">g ∈ G(matched)&nbsp; ⟺&nbsp; g ∈ G(pred) ∧ ∀ j, g ∈ G(guard&#8202;<sub>j</sub>)</div>
+              <div class="handles">
+                <code>matched_invariance_iff</code>
+                <code>matched_invariance_characterization</code>
+                <code>guards_invariant_of_matched</code>
+              </div>
+            </article>
+          </div>
+
+          <div class="lead-claim">
+            <h3>A new exact law: the exchange constant.</h3>
+            <p>
+              When two guard families act on a model under a shared symmetry, they could in
+              principle mask each other&rsquo;s response and hide a moved target between them. We prove
+              the room for that is exactly one number: the guards can trade only a single shared
+              constant, the data side up by <code>c</code> and the law side down by <code>c</code>.
+              Require both families to respond monotonically and <code>c</code> collapses to zero —
+              the families cannot cancel, and every broken symmetry that any guard names stays
+              visible. The cancellation channel between guard families is one-dimensional, and we
+              characterize it in full.
+            </p>
+            <div class="formal">∃ c, &nbsp;∑ λ&#8202;<sub>j</sub> ΔG&#8202;<sub>j</sub><sup>&#8202;data</sup> = c&nbsp; ∧&nbsp; ∑ μ&#8202;<sub>i</sub> ΔG&#8202;<sub>i</sub><sup>&#8202;law</sup> = &minus;c</div>
+            <div class="handles">
+              <code>mixed_guard_exchange</code>
+            </div>
+          </div>
+
+          <p class="note">
+            <strong>Read forward, this is a calculus, not a critique.</strong> The same laws tell a
+            builder which invariances are safe to impose, which erase a target, and which guard
+            restores a broken symmetry — each guard packaged with a proof that it reads the
+            structure it claims to read. A modeling goal becomes a typed list of obligations and
+            repairs, with the algebra of the repairs settled in advance.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 4 — THE FORCING THEOREM ============ -->
+      <section class="tint" id="forcing">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The forcing theorem</p>
+            <h2>The admissible world model is unique, and the theory hands it to you.</h2>
+            <p>
+              The arguments so far rule representations out. This one is positive. Fix the three
+              declarations — the targets <code>𝒯</code>, the readout budget, the dynamics
+              <code>P</code> — and look at every way to compress the state space that keeps the
+              targets and respects the transitions. We prove there is a single greatest such
+              compression: the coarsest faithful representation, the <em>bisimulation quotient</em>
+              of the state space — the partition of states into those that are genuinely different
+              for prediction, the causal states. Not one option among many. The one the theory
+              names.
+            </p>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Result 1 · Canonicity</span>
+              <h3>A single coarsest compression exists.</h3>
+              <p>
+                The compressions that satisfy the specification — refine the targets, respect the
+                dynamics — are ordered by how much they keep. We prove their supremum is itself one
+                of them, so there is a greatest element rather than a frontier of incomparable
+                choices. This is the finite form of Larsen and Skou&rsquo;s union-of-bisimulations
+                theorem, carried by a single induction over the generated relation.
+              </p>
+              <div class="formal">≈&nbsp;&nbsp;=&nbsp;&nbsp;⨆&#8202;{ r : r refines 𝒯 ∧ r respects P }&nbsp;&nbsp;∈&nbsp;&nbsp;the same family</div>
+              <div class="handles">
+                <code>SpecCongruences</code>
+                <code>bisimilarity</code>
+                <code>bisim_mem</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Result 2 · Descent</span>
+              <h3>The dynamics descends for free.</h3>
+              <p>
+                On the canonical quotient every declared target is still defined, and the
+                environment&rsquo;s transition law pushes forward to a transition law on the classes
+                — with a commuting square that holds <em>by definition</em>, not as a side condition
+                to be discharged. The latent dynamics Obligation&nbsp;2 demanded exists here by
+                construction. Nothing has to be fit.
+              </p>
+              <div class="formal">dynamics on S/≈ at [s]&nbsp;&nbsp;=&nbsp;&nbsp;P(s) pushed along S → S/≈&nbsp;&nbsp;—&nbsp;&nbsp;holds by <code>rfl</code></div>
+              <div class="handles">
+                <code>quotientTarget</code>
+                <code>quotientDynamics</code>
+                <code>quotientDynamics_mk</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Result 3 · Universality</span>
+              <h3>Every world model already computes it.</h3>
+              <p>
+                Any representation that satisfies the specification refines the canonical quotient,
+                and the causal-state classification factors through it — whatever hidden vector the
+                model carries, one fixed map reads the causal states back out of it. Two systems
+                built independently, on unrelated latent spaces, compute the same object underneath.
+                The quotient is not a construction we impose on a model; it is what every valid model
+                was already doing.
+              </p>
+              <div class="formal">SpecEncoder E&nbsp;&nbsp;⟹&nbsp;&nbsp;ker E ≤ ≈&nbsp;&nbsp;·&nbsp;&nbsp;∃ φ,&nbsp;(· / ≈) = φ ∘ E</div>
+              <div class="handles">
+                <code>specEncoder_ker_le</code>
+                <code>bisim_classification_factors</code>
+              </div>
+            </article>
+          </div>
+
+          <div class="lead-claim">
+            <h3>The forcing theorem, in one line.</h3>
+            <p>
+              The canonical quotient is spec-satisfying, it is the greatest such, and every world
+              model refines it. The earlier arguments say which representations are impossible; this
+              one says which representation is forced. What survives the specification is exactly the
+              bisimulation quotient, and everything downstream — the geometry it carries, the
+              architectures that realize it — is a theory of that single object.
+            </p>
+            <div class="handles">
+              <code>forcing_theorem</code>
+              <code>le_bisimilarity</code>
+            </div>
+          </div>
+
+          <p class="note">
+            <strong>This is a build order, not a taxonomy.</strong> Once the targets, the budget, and
+            the dynamics are declared, the representation is fixed up to relabeling. A team does not
+            search a space of candidate encoders and hope one is faithful; the theory hands them the
+            object to aim for, and the remaining work is to realize it in a trainable architecture —
+            which is the subject of the levels that follow.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 5 — THE METRIC LAYER ============ -->
+      <section id="metric">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The geometry of the quotient</p>
+            <h2>The canonical state space arrives with a canonical geometry.</h2>
+            <p>
+              The forcing theorem hands you a set of causal-state classes. This argument puts a
+              distance on them — the Fisher&ndash;Rao distance between the one-step transition laws
+              of two classes — and proves it measures exactly the behavioral difference the
+              specification permits, and no more. The geometry is not an add-on chosen for
+              convenience: it exists <em>because</em> the quotient does, and it obeys the
+              monotonicity law that separates an honest distance-between-distributions from a
+              decorative one.
+            </p>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Result 1 · Existence</span>
+              <h3>The metric costs nothing beyond the quotient.</h3>
+              <p>
+                The forced quotient already carries a well-defined transition law on its classes, so
+                comparing two classes by the Fisher&ndash;Rao distance between their laws is at once
+                a genuine function of the classes — no new well-definedness to discharge. It is zero
+                on the diagonal and symmetric. The geometry falls out of the same lift that produced
+                the classes.
+              </p>
+              <div class="formal">bisimMetric c c&rsquo;&nbsp;=&nbsp;d<sub>FR</sub>(P&#8202;c, P&#8202;c&rsquo;)&nbsp;&nbsp;·&nbsp;&nbsp;d(c, c) = 0,&nbsp; d(c, c&rsquo;) = d(c&rsquo;, c)</div>
+              <div class="handles">
+                <code>bisimMetric</code>
+                <code>bisimMetric_self</code>
+                <code>bisimMetric_comm</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Result 2 · Pricing</span>
+              <h3>Distance bounds every test that could tell classes apart.</h3>
+              <p>
+                For any Boolean test on classes, the gap between its expectations under the two
+                classes&rsquo; transition laws is at most the sine of half their distance. One number
+                bounds one-step behavioral distinguishability across all tests at once — and
+                bisimilar states, at distance zero, have identical test power. The metric prices
+                exactly the differences the specification lets classes have.
+              </p>
+              <div class="formal">|&#8202;E<sub>P c</sub>[f] &minus; E<sub>P c&rsquo;</sub>[f]&#8202;|&nbsp; ≤&nbsp; sin(&#8202;d<sub>FR</sub>(c, c&rsquo;) / 2&#8202;)&nbsp;&nbsp;for every Boolean f</div>
+              <div class="handles">
+                <code>bisimMetric_prices_tests</code>
+                <code>bisim_zero_one_step_power</code>
+                <code>finite_fisherRao_risk_bound</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Result 3 · Monotonicity</span>
+              <h3>Forgetting information never manufactures distance.</h3>
+              <p>
+                Push both transition laws through any map and the Fisher&ndash;Rao distance cannot
+                increase — the overlap between two distributions only grows under coarse-graining.
+                This is the finite Chentsov monotonicity, the data-processing inequality for this
+                geometry: you cannot conjure behavioral distinguishability by discarding detail, which
+                is what makes a distance built from probabilities trustworthy.
+              </p>
+              <div class="formal">d<sub>FR</sub>(map g p, map g q)&nbsp; ≤&nbsp; d<sub>FR</sub>(p, q)&nbsp;&nbsp;for every g</div>
+              <div class="handles">
+                <code>fisherRao_mapPMF_le</code>
+                <code>bhattacharyya_le_mapPMF</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>One direction here is open, and we state it as a conjecture, not a result.</strong>
+            Everything above is proved. Whether this geometry is the <em>only</em> one the
+            specification admits — whether any distance that is natural under congruent embeddings and
+            monotone under coarse-graining must agree with Fisher&ndash;Rao up to scale (a finite
+            Chentsov uniqueness), and whether it is the one-step layer of the Ferns discounted fixed
+            point — is a precise conjecture we are proving next. The monotonicity above is its first
+            proved step.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 6 — ARCHITECTURES FOR PHYSICS ============ -->
+      <section class="tint" id="architecture">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Architectures for physics</p>
+            <h2>Which prediction horizons an architecture can support is fixed by the physics.</h2>
+            <p>
+              A latent transition law does not exist at every time-horizon just because you want it
+              to. For a fixed encoder and a fixed flow, the horizons at which a latent step exists
+              form an algebraic object — a subset of time — and its size is an invariant of the
+              representation, not a training outcome. Read across the physics, that invariant takes
+              exactly three settings: <code>{0}</code> for free kinematics, the half-period lattice
+              <code>(π/ω)ℤ</code> for the oscillator, and all of time for a representation that keeps
+              what the dynamics actually distinguishes. One law; three classes.
+            </p>
+          </div>
+
+          <div class="lead-claim">
+            <h3>The realizable horizons form a group — once the world is finite.</h3>
+            <p>
+              For any encoder against any flow, the horizons that admit a latent dynamics are closed
+              under zero and addition: they are a submonoid of time. When the state space is finite
+              they close under negation as well — a pigeonhole period turns any backward step into a
+              forward one — so they form a subgroup. Finiteness earns that closure: on an infinite
+              state space we exhibit an encoder whose admissible horizons contain <code>+1</code> but
+              not <code>−1</code>, a submonoid that is genuinely not a group. The algebra of
+              realizable horizons is pinned down exactly.
+            </p>
+            <div class="formal">admissibleHorizons E : AddSubmonoid T&nbsp;&nbsp;—&nbsp;an AddSubgroup when S is finite;&nbsp;&nbsp;on ℤ:&nbsp; +1 ∈,&nbsp; −1 ∉</div>
+            <div class="handles">
+              <code>admissibleHorizons</code>
+              <code>admissibleSubgroup</code>
+              <code>neg_one_not_mem_collapse</code>
+            </div>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Spectrum · Kinematics</span>
+              <h3>Free motion, position only: nothing but the trivial horizon.</h3>
+              <p>
+                Take a free particle and a latent that keeps position and drops velocity. The
+                admissible set is exactly <code>{0}</code>: no nonzero horizon carries a latent
+                dynamics. A representation that has shed velocity cannot be repaired by sampling, at
+                any rate — the bottom of the spectrum is the horizon that does nothing.
+              </p>
+              <div class="formal">t ∈ admissibleHorizons (Kin.x)&nbsp; ⟺&nbsp; t = 0</div>
+              <div class="handles">
+                <code>kinematic_admissible_iff</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Spectrum · Oscillator</span>
+              <h3>The harmonic oscillator: the half-period lattice.</h3>
+              <p>
+                For the true oscillator flow with the same position-only latent, a latent step exists
+                at exactly the integer multiples of the half-period — the stroboscopic lattice
+                <code>(π/ω)ℤ</code>. Between the beats there is no transition law; on them the flow
+                aliases to a scalar on position. A nontrivial subgroup, but a thin one: the middle of
+                the spectrum, read off PhysLean&rsquo;s literal solution flow.
+              </p>
+              <div class="formal">t admissible&nbsp; ⟺&nbsp; ∃ n : ℤ, n·π = ω·t&nbsp;&nbsp;(the subgroup (π/ω)ℤ)</div>
+              <div class="handles">
+                <code>oscillator_latentStep_iff_int_multiple</code>
+                <code>oscillator_latentStep_iff</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Spectrum · Forced quotient</span>
+              <h3>The representation the theory selects: every horizon at once.</h3>
+              <p>
+                One dichotomy governs all three cases: a horizon is admissible exactly when the
+                flowed reading factors through the encoder. For a lossy latent it fails almost
+                everywhere; for the representation the forcing theorem selects — the one whose fibers
+                respect the dynamics — it holds at every horizon, so the admissible set is all of
+                time. The top of the spectrum is what faithfulness buys.
+              </p>
+              <div class="formal">t ∈ admissibleHorizons E&nbsp; ⟺&nbsp; (s ↦ E (t +ᵥ s)) factors through E</div>
+              <div class="handles">
+                <code>latentStep_iff_factorsThrough</code>
+                <code>mem_admissibleHorizons</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>The spectrum runs, not just proves.</strong> The oscillator&rsquo;s half-period
+            aliasing is realized as <code>blockModel</code>, a type-checked flow world model on a
+            six-state cycle, and its dichotomy is settled by the kernel on the literal finite dynamics
+            — horizon&nbsp;3 admits a latent step (<code>three_mem_block</code>), horizon&nbsp;1 does
+            not (<code>one_not_mem_block</code>). And in that architecture, admissibility of every
+            declared horizon is a derived theorem (<code>FlowWorldModel.horizons_admissible</code>),
+            never a field you get to assert: the flow-correctness certificate cannot be made circular.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 7 — THE EXECUTABLE DYADIC LAYER ============ -->
+      <section id="executable">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The executable layer</p>
+            <h2>The impossibility runs on real floating-point, and its input is a theorem.</h2>
+            <p>
+              A formal result about an idealized real-valued network leaves a gap: the network that
+              actually runs is floating-point. This layer closes that gap for the readout
+              impossibility. Because a <code>float32</code> value is a dyadic rational, its exact real
+              value is computable inside the proof kernel — so the quantity you would normally obtain
+              by <em>running</em> the encoder is instead <em>proved</em>, exactly, and the
+              impossibility theorem fires on the literal executed computation with no idealization in
+              between.
+            </p>
+          </div>
+
+          <div class="lead-claim">
+            <h3>The empirical antecedent is computed, not assumed.</h3>
+            <p>
+              Take two adjacent <code>binary32</code> values and make the latents their exact decodes.
+              The gap between those latents — the empirical fact a readout bound depends on — is then a
+              decidable rational, settled by <code>decide</code> on the bit-fields and
+              <code>norm_num</code> on the arithmetic. No <code>native_decide</code>, no opaque
+              <code>Float</code>, no added axioms: the measurement that would normally be reported from
+              a run is a kernel-checked equation.
+            </p>
+            <div class="formal">E false = 1,&nbsp; E true = 1 + 2⁻²³&nbsp;&nbsp;⟹&nbsp;&nbsp;dist(E false, E true) = 2⁻²³</div>
+            <div class="handles">
+              <code>exec_latent_gap</code>
+              <code>x₂_toReal</code>
+            </div>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Layer · Decode</span>
+              <h3>Two bit-patterns, decoded exactly.</h3>
+              <p>
+                The samples are the concrete words <code>0x3F800000</code> — the bits of
+                <code>+1.0</code> — and <code>0x3F800001</code>, the next representable float above it.
+                Extracting their fields and passing through the float-to-dyadic bridge gives exact
+                reals: <code>1</code> and <code>1 + 2⁻²³</code>. Nothing is rounded or stipulated; the
+                decode is a proof.
+              </p>
+              <div class="formal">ofBits 0x3F800000 → 1&nbsp;&nbsp;·&nbsp;&nbsp;ofBits 0x3F800001 → 8388609 / 8388608 = 1 + 2⁻²³</div>
+              <div class="handles">
+                <code>x₁_toReal</code>
+                <code>x₂_toDyadic</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Layer · Antecedent</span>
+              <h3>The latent gap is one unit in the last place.</h3>
+              <p>
+                The distance between the two executed latents is exactly <code>2⁻²³</code> — a single
+                ulp, read straight off the decodes. The latents are distinct, so the collapse is
+                genuinely approximate rather than exact: the impossibility that follows is the
+                quantitative, distance-bounded one, not the degenerate zero-gap case.
+              </p>
+              <div class="formal">dist(E false, E true) = 1 / 8388608 = 2⁻²³&nbsp;&nbsp;·&nbsp;&nbsp;E false ≠ E true</div>
+              <div class="handles">
+                <code>exec_latents_distinct</code>
+                <code>exec_close</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Layer · Impossibility</span>
+              <h3>No Lipschitz reading of the executed encoder recovers the target.</h3>
+              <p>
+                A target separates the two samples by a unit gap, which exceeds the budget-scaled
+                latent gap <code>1 · 2⁻²³</code>. The McShane impossibility then applies with every
+                antecedent kernel-proven: no <code>1</code>-Lipschitz reading of the executed encoder
+                computes the target. The boundary of Argument&nbsp;1 holds on the real computation, not
+                only on the idealization of it.
+              </p>
+              <div class="formal">|T false − T true| = 1&nbsp; &gt;&nbsp; L · 2⁻²³&nbsp;&nbsp;⟹&nbsp;&nbsp;¬ ∃ g, LipschitzWith 1 g ∧ T = g ∘ E</div>
+              <div class="handles">
+                <code>no_lipschitz_reading_of_executed_encoder</code>
+                <code>exec_sep</code>
+                <code>exec_gap</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>The scope is exactly what is claimed.</strong> The executed map is minimal — two
+            decoded bit-patterns — and the target is a stipulated unit-gap labelling, so the empirical
+            content here is entirely on the encoder side. What the layer establishes is the method:
+            that an impossibility whose antecedent is an executed floating-point quantity can be
+            discharged in-kernel, exactly, with no <code>native_decide</code> and no opaque floats.
+            Scaling the latents to a literal executed attention head and grounding the target is the
+            next step, and the bridge that makes it feasible — <code>float32</code> is dyadic — is
+            already the load-bearing lemma here.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ARGUMENT 8 — WHAT IT IS FOR + THE JEPA BOUNDARY ============ -->
+      <section class="tint" id="consequences">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">What the theory is for</p>
+            <h2>A standard for building world models, and for judging them.</h2>
+            <p>
+              Read forward, the seven levels are an engineering discipline: declare what a model is
+              for, build the representation the forcing theorem selects, inherit its geometry and its
+              prediction horizons, and read it within a stated budget — each step a theorem rather
+              than a heuristic. Read as an evaluation standard, the same theory is sharp: a proxy
+              objective that passes carries no evidence about a quantity it is structurally blind to.
+              The clearest worked case is the family of latent self-supervised models — JEPA-class
+              systems that predict in representation space.
+            </p>
+          </div>
+
+          <div class="lead-claim">
+            <h3>The JEPA boundary.</h3>
+            <p>
+              A JEPA predictor is, by construction, a function of the context representation alone. So
+              it can see only what the context-encoder keeps: if the encoder sends two inputs with
+              different true targets to the same context, then no predictor-and-decoder pair recovers
+              that target at both inputs — the represented target is simply not a function of the JEPA
+              context. This is the mismatch lemma of Argument&nbsp;2, placed at the JEPA architecture,
+              and it is stated against the real objective rather than a stand-in.
+            </p>
+            <div class="formal">E i₁ = E i₂&nbsp; ∧&nbsp; T i₁ ≠ T i₂&nbsp;&nbsp;⟹&nbsp;&nbsp;¬ ∃ dec, ∀ x, T x = dec (predict (E x) k)</div>
+            <div class="handles">
+              <code>jepa_predict_cannot_recover_target</code>
+              <code>jepa_target_not_identifiable</code>
+            </div>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">Boundary · Architecture</span>
+              <h3>The predictor sees only what the encoder kept.</h3>
+              <p>
+                The JEPA predictor has the shape <code>predict : Context → index → Pred</code>: it reads
+                the context at a target index and nothing more. Composing any decoder onto it is
+                therefore a readout of the context alone, so it inherits whatever the context-encoder
+                discarded. The boundary is a consequence of the architecture, settled before any
+                training run.
+              </p>
+              <div class="formal">predict : Context → Fin n → Pred&nbsp;&nbsp;·&nbsp;&nbsp;dec ∘ (predict · k) is a readout of E</div>
+              <div class="handles">
+                <code>jepa_predict_cannot_recover_target</code>
+                <code>jepa_target_not_factorsThrough</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Boundary · Witness</span>
+              <h3>The impossibility has a concrete witness.</h3>
+              <p>
+                It is not vacuous. A two-input encoder collapsing to a one-point context, with the two
+                true targets distinct, is a case where no decoder on the predictor recovers the target
+                — the collapse and the separation both settled by <code>decide</code>. The hypothesis
+                of the boundary is realized, in-kernel, on a finite instance.
+              </p>
+              <div class="formal">witnessE 0 = witnessE 1,&nbsp; witnessT 0 ≠ witnessT 1&nbsp;&nbsp;⟹&nbsp;&nbsp;no decoder recovers the target</div>
+              <div class="handles">
+                <code>jepa_boundary_witness_predict</code>
+                <code>witness_collapse</code>
+                <code>witness_separated</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">Boundary · Real objective</span>
+              <h3>Tied to the objective practitioners optimize.</h3>
+              <p>
+                The boundary is stated against the published <code>jepaLoss</code> — imported, not
+                re-defined for the proof. On the witness, a context-only predictor that disagrees with
+                the target index makes that objective compute a nonzero loss, evaluated in the kernel.
+                The result is about the quantity a JEPA system actually minimizes.
+              </p>
+              <div class="formal">jepaLoss [0] (witnessE 0) targetAtIdx predict (0/1&nbsp;loss)&nbsp; =&nbsp; 1</div>
+              <div class="handles">
+                <code>witness_jepaLoss_computes</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>The scope is stated precisely.</strong> The boundary says the represented target is
+            not a function of the JEPA context under collapse; the stronger form — a positive lower
+            bound on <code>jepaLoss</code> across every collapsed, target-separated pair — is a separate
+            binding we have scoped and not yet built. The dissociation this predicts is the one
+            Argument&nbsp;2 quantified: a latent planner grading success in its own representation can
+            report near-perfect achievement while its correlation with true goal attainment stays low.
+            The theory names the condition under which that gap is forced, and the representation that
+            closes it.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>Noumenal Research · World-Model Theory · Dhruv Gupta</span>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+
+    <script src="verify.js" defer></script>
+  </body>
+</html>
