@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "generatedBy": "local",
-  "repo": "",
+  "generatedBy": "ci",
+  "repo": "noumenal-ai/world-model-theory",
   "workflow": "verify.yml",
-  "commit": "bf47178",
-  "timestamp": "2026-07-03T00:38:06Z",
-  "runUrl": "",
+  "commit": "28e83957f769e492dd921b0abce0363fd61f0226",
+  "timestamp": "2026-07-03T00:38:17Z",
+  "runUrl": "https://github.com/noumenal-ai/world-model-theory/actions/runs/28630637896",
   "status": "pass",
   "checks": [
     { "id": "chips",  "label": "Every cited theorem handle resolves", "status": "pass", "detail": "65 / 65 handles resolve to real declarations" },
