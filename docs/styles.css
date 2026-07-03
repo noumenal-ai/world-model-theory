@@ -9,6 +9,8 @@
   --accent: #e0550f;
   --accent-dark: #c2450c;
   --accent-soft: #fbe7d6;
+  --ok: #2f8f4e;
+  --ok-soft: #e3f0e4;
   --code-bg: #1a1712;
   --code-ink: #f6eede;
   --measure: 42rem;
@@ -164,8 +166,8 @@ section.tint { background: #f4ecdb; }
 .verify-chip:hover { border-color: var(--accent); color: var(--ink); }
 .verify-chip .vlabel { letter-spacing: 0.01em; }
 
-.vdot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--ink-faint); flex: none; }
-.v-pass { background: var(--accent); }
+.vdot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--ink-faint); flex: none; transition: background-color 0.2s ease; }
+.v-pass { background: var(--ok); }
 .v-fail { background: #b23a3a; }
 .v-review { background: #b8860b; }
 .v-skipped, .v-pending { background: var(--ink-faint); }
@@ -192,7 +194,7 @@ section.tint { background: #f4ecdb; }
 
 .vhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
 .vstatus { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; color: var(--ink); text-transform: capitalize; }
-.vstatus.v-pass { color: var(--accent); background: none; }
+.vstatus.v-pass { color: var(--ok); background: none; }
 .vstatus.v-fail { color: #b23a3a; background: none; }
 .vmeta { font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.25rem; }
 .vmeta code { font-size: 0.86em; }
@@ -210,7 +212,7 @@ section.tint { background: #f4ecdb; }
   font-family: var(--mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em;
   padding: 0.18em 0.5em; border-radius: 5px; color: var(--ink-faint); background: var(--line-soft);
 }
-.vt-pass { color: #7a3410; background: var(--accent-soft); }
+.vt-pass { color: #1f5c33; background: var(--ok-soft); }
 .vt-fail { color: #7a2020; background: #f3e0e0; }
 .vt-review { color: #7a5a10; background: #f4ecd6; }
 
@@ -224,4 +226,33 @@ section.tint { background: #f4ecdb; }
 
 @media (max-width: 820px) {
   .topbar-right { gap: 0; }
+}
+
+/* ---- proof index ---- */
+.proof-index { max-width: 62rem; }
+.pi-corpus { margin-bottom: 2.2rem; }
+.pi-corpus > h3 {
+  font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--ink-faint); font-weight: 600; margin: 0 0 0.3rem;
+}
+.pi-row {
+  display: grid; grid-template-columns: 17rem 1fr; gap: 0.5rem 1.4rem;
+  padding: 0.85rem 0; border-top: 1px solid var(--line-soft); align-items: baseline;
+}
+.pi-mod { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); word-break: break-all; }
+.pi-mod:hover { text-decoration: underline; }
+.pi-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.pi-chips a { text-decoration: none; display: inline-block; }
+.pi-chips a code { transition: box-shadow 0.12s ease; }
+.pi-chips a:hover code { box-shadow: 0 0 0 2px var(--accent); }
+@media (max-width: 820px) {
+  .pi-row { grid-template-columns: 1fr; gap: 0.45rem; }
+}
+
+/* ---- hero diagram ---- */
+.hero-diagram { margin: 3.2rem 0 0.5rem; max-width: 100%; }
+.hero-diagram svg { width: 100%; height: auto; display: block; }
+.hero-diagram figcaption {
+  font-size: 0.86rem; color: var(--ink-faint); line-height: 1.55;
+  margin-top: 1rem; max-width: 54rem;
 }

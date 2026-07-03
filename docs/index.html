@@ -21,6 +21,7 @@
             <a href="#architecture">Architecture</a>
             <a href="#executable">Executable</a>
             <a href="#consequences">Consequences</a>
+            <a href="#index">Proofs</a>
             <a href="paper/wmspec_v1.pdf">Paper</a>
           </nav>
           <button class="verify-chip" id="verifyBtn" type="button"
@@ -58,6 +59,309 @@
             <a class="btn primary" href="#spec">Read the theory</a>
             <a class="btn" href="paper/wmspec_v1.pdf">Paper (PDF)</a>
           </div>
+          <figure class="hero-diagram">
+<svg viewBox="0 0 1180 680" xmlns="http://www.w3.org/2000/svg" role="img" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Positive world-model theory: the general bisimilarity machine and its harmonic-oscillator witness</title>
+  <desc>Top band shows the general machine (DECLARE, SPECIFICATION, the S/approx quotient hub with four alive carried outputs, and UNIVERSALITY). Bottom band shows the harmonic oscillator specializing each node, where conservation freezes the latent law and metric.</desc>
+
+  <defs>
+    <marker id="arrA" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 L2.6,5 Z" fill="#e0550f"/>
+    </marker>
+    <marker id="arrInk" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 L2.6,5 Z" fill="#1c1a15"/>
+    </marker>
+    <marker id="arrMute" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 L2.6,5 Z" fill="#9a9184"/>
+    </marker>
+    <marker id="arrDash" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 L2.6,5 Z" fill="#8f867a"/>
+    </marker>
+  </defs>
+
+  <line x1="40" y1="416" x2="1140" y2="416" stroke="#e7dfd1" stroke-width="1"/>
+
+  <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+    <text x="40" y="58" font-size="12.5" letter-spacing="2.2" fill="#e0550f" font-weight="600">THE GENERAL MACHINE</text>
+    <text x="1140" y="58" text-anchor="end" font-size="11.5" fill="#524b3f">alive on every layer</text>
+    <text x="40" y="446" font-size="12.5" letter-spacing="2.2" fill="#9a9184" font-weight="600">THE PHYSICS WITNESS &#183; harmonic oscillator</text>
+    <text x="1140" y="446" text-anchor="end" font-size="11.5" fill="#9a9184">one specialization, fully derived</text>
+  </g>
+
+  <!-- dashed extension edge into DECLARE -->
+  <g>
+    <path d="M120,150 C120,118 132,110 168,110" fill="none" stroke="#8f867a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrDash)"/>
+    <rect x="26" y="128" width="92" height="44" rx="9" fill="#fdfbf7" stroke="#cfc6b6" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="72" y="146" text-anchor="middle" font-size="11.5" fill="#524b3f" font-family="ui-monospace, 'SF Mono', Menlo, monospace">+ actions do(&#183;)</text>
+    <text x="72" y="161" text-anchor="middle" font-size="9.5" fill="#9a9184">extension, not yet mechanized</text>
+  </g>
+
+  <!-- (1) DECLARE -->
+  <g>
+    <rect x="172" y="96" width="150" height="196" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="247" y="120" text-anchor="middle" font-size="16" font-weight="600" fill="#1c1a15">DECLARE</text>
+    <text x="247" y="137" text-anchor="middle" font-size="11.5" fill="#524b3f">the inputs</text>
+    <line x1="190" y1="148" x2="304" y2="148" stroke="#e7dfd1" stroke-width="1"/>
+    <g font-size="12.5" fill="#1c1a15">
+      <text x="192" y="170"><tspan font-family="ui-monospace, Menlo, monospace" font-weight="600">S</tspan><tspan dx="4" fill="#524b3f" font-size="11">  state space</tspan></text>
+      <text x="192" y="197"><tspan font-family="ui-monospace, Menlo, monospace" font-weight="600">&#119827;</tspan><tspan dx="4" fill="#524b3f" font-size="11">  target family</tspan></text>
+      <text x="192" y="224"><tspan font-family="ui-monospace, Menlo, monospace" font-weight="600">P</tspan><tspan dx="4" fill="#524b3f" font-size="11">  dynamics</tspan></text>
+      <text x="192" y="251"><tspan font-family="ui-monospace, Menlo, monospace" font-weight="600">L</tspan><tspan dx="4" fill="#524b3f" font-size="11">  readout budget</tspan></text>
+    </g>
+  </g>
+
+  <path d="M322,194 L334,194" fill="none" stroke="#e0550f" stroke-width="2" marker-end="url(#arrA)"/>
+
+  <!-- (2) SPECIFICATION -->
+  <g>
+    <rect x="336" y="120" width="158" height="148" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="415" y="144" text-anchor="middle" font-size="16" font-weight="600" fill="#1c1a15">SPECIFICATION</text>
+    <text x="415" y="161" text-anchor="middle" font-size="11.5" fill="#524b3f">the gate</text>
+    <line x1="354" y1="172" x2="476" y2="172" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="415" y="197" text-anchor="middle" font-size="12" fill="#1c1a15" font-family="ui-monospace, Menlo, monospace">ker  refines  &#119827;</text>
+    <path d="M409,222 L415,213 L421,222" fill="none" stroke="#e0550f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="415" y="243" text-anchor="middle" font-size="12" fill="#1c1a15" font-family="ui-monospace, Menlo, monospace">congruence for P</text>
+  </g>
+
+  <!-- SPEC -> HUB : forcing arrow + two chips -->
+  <path d="M494,206 C536,206 548,236 578,236" fill="none" stroke="#e0550f" stroke-width="2.4" marker-end="url(#arrA)"/>
+  <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+    <g>
+      <rect x="481" y="146" width="120" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="541" y="161" text-anchor="middle" font-size="11.5" fill="#f6eede">forcing_theorem</text>
+    </g>
+    <g>
+      <rect x="487" y="172" width="108" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="541" y="187" text-anchor="middle" font-size="11.5" fill="#f6eede">bisimilarity</text>
+    </g>
+  </g>
+
+  <!-- (3) S/approx HUB -->
+  <g>
+    <circle cx="662" cy="236" r="82" fill="#fbe7d6" stroke="#e0550f" stroke-width="2.8"/>
+    <circle cx="662" cy="236" r="72" fill="none" stroke="#e0550f" stroke-width="0.8" stroke-opacity="0.30"/>
+    <g stroke="#e0550f" stroke-opacity="0.28" stroke-width="1" fill="none">
+      <circle cx="640" cy="212" r="14"/>
+      <circle cx="688" cy="216" r="12"/>
+      <circle cx="646" cy="258" r="13"/>
+      <circle cx="686" cy="258" r="11"/>
+    </g>
+    <text x="662" y="232" text-anchor="middle" font-size="30" font-weight="700" fill="#1c1a15" font-family="ui-monospace, Menlo, monospace">S/&#8776;</text>
+    <text x="662" y="256" text-anchor="middle" font-size="11.5" fill="#8a4a1e" font-weight="600">the causal states</text>
+    <text x="662" y="272" text-anchor="middle" font-size="10" fill="#524b3f">target-relative bisimilarity quotient</text>
+  </g>
+
+  <!-- (a) canonical encoder -->
+  <path d="M610,174 C600,150 588,132 570,124" fill="none" stroke="#e0550f" stroke-width="1.8" marker-start="url(#arrA)"/>
+  <g>
+    <rect x="410" y="84" width="160" height="36" rx="9" fill="#fffdf7" stroke="#e0550f" stroke-width="1.1"/>
+    <text x="424" y="99" font-size="12.5" fill="#1c1a15">canonical encoder</text>
+    <text x="424" y="114" font-size="12" fill="#524b3f" font-family="ui-monospace, Menlo, monospace">E : S &#8594; S/&#8776;</text>
+  </g>
+
+  <!-- (b) descended targets -->
+  <path d="M714,174 C726,150 740,132 758,124" fill="none" stroke="#e0550f" stroke-width="1.8" marker-end="url(#arrA)"/>
+  <g>
+    <rect x="754" y="84" width="160" height="36" rx="9" fill="#fffdf7" stroke="#e0550f" stroke-width="1.1"/>
+    <text x="834" y="99" text-anchor="middle" font-size="12.5" fill="#1c1a15">descended targets</text>
+    <text x="834" y="114" text-anchor="middle" font-size="11" fill="#524b3f">&#119827; factors through S/&#8776;</text>
+  </g>
+
+  <!-- (c) latent transition law Pbar - ALIVE -->
+  <path d="M610,298 C588,322 566,334 552,338" fill="none" stroke="#e0550f" stroke-width="1.8" marker-end="url(#arrA)"/>
+  <g>
+    <rect x="360" y="330" width="188" height="70" rx="10" fill="#fffdf7" stroke="#e0550f" stroke-width="1.4"/>
+    <text x="374" y="353" font-size="13" fill="#1c1a15">latent transition law</text>
+    <text x="513" y="353" font-size="14.5" font-weight="700" fill="#e0550f" font-family="ui-monospace, Menlo, monospace">P</text>
+    <line x1="512.5" y1="342.5" x2="523" y2="342.5" stroke="#e0550f" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="374" y="369" font-size="10.5" fill="#e0550f" font-weight="600">ALIVE &#183; flow among the classes</text>
+    <g>
+      <circle cx="386" cy="387" r="4.4" fill="#fbe7d6" stroke="#e0550f" stroke-width="1.2"/>
+      <circle cx="428" cy="382" r="4.4" fill="#fbe7d6" stroke="#e0550f" stroke-width="1.2"/>
+      <circle cx="470" cy="389" r="4.4" fill="#fbe7d6" stroke="#e0550f" stroke-width="1.2"/>
+      <circle cx="512" cy="383" r="4.4" fill="#fbe7d6" stroke="#e0550f" stroke-width="1.2"/>
+      <path d="M391,386 C400,381 418,380 423,382" fill="none" stroke="#e0550f" stroke-width="1.3" marker-end="url(#arrA)"/>
+      <path d="M433,383 C443,387 460,389 465,389" fill="none" stroke="#e0550f" stroke-width="1.3" marker-end="url(#arrA)"/>
+      <path d="M475,387 C486,384 502,383 507,383" fill="none" stroke="#e0550f" stroke-width="1.3" marker-end="url(#arrA)"/>
+    </g>
+    <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+      <rect x="389" y="319" width="130" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="454" y="334" text-anchor="middle" font-size="11.5" fill="#f6eede">quotientDynamics</text>
+    </g>
+  </g>
+
+  <!-- (d) Fisher-Rao metric d_FR - ALIVE -->
+  <path d="M714,298 C736,322 758,334 772,338" fill="none" stroke="#e0550f" stroke-width="1.8" marker-end="url(#arrA)"/>
+  <g>
+    <rect x="776" y="330" width="192" height="70" rx="10" fill="#fffdf7" stroke="#e0550f" stroke-width="1.4"/>
+    <text x="790" y="353" font-size="13" fill="#1c1a15">Fisher&#8211;Rao metric <tspan font-family="ui-monospace, Menlo, monospace" font-weight="700" fill="#e0550f">d_FR</tspan></text>
+    <text x="790" y="369" font-size="10.5" fill="#e0550f" font-weight="600">ALIVE &#183; smooth latent geometry</text>
+    <g stroke="#e0550f" fill="none">
+      <path d="M792,390 C812,378 838,378 856,390" stroke-width="1.5"/>
+      <path d="M796,394 C816,383 840,383 854,394" stroke-width="1.1" stroke-opacity="0.6"/>
+      <path d="M888,378 C906,380 922,386 938,386" stroke-width="1.5"/>
+      <path d="M888,385 C906,387 922,391 938,392" stroke-width="1.1" stroke-opacity="0.6"/>
+      <circle cx="892" cy="382" r="3.2" fill="#e0550f" stroke="none"/>
+      <circle cx="940" cy="388" r="3.2" fill="#e0550f" stroke="none"/>
+    </g>
+    <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+      <rect x="813" y="319" width="102" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="864" y="334" text-anchor="middle" font-size="11.5" fill="#f6eede">bisimMetric</text>
+    </g>
+  </g>
+
+  <!-- (5) UNIVERSALITY -->
+  <path d="M744,236 L936,236" fill="none" stroke="#e0550f" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <g>
+    <rect x="938" y="150" width="204" height="176" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="1040" y="176" text-anchor="middle" font-size="16" font-weight="600" fill="#1c1a15">UNIVERSALITY</text>
+    <text x="1040" y="193" text-anchor="middle" font-size="11.5" fill="#524b3f">the quotient is terminal</text>
+    <line x1="956" y1="204" x2="1124" y2="204" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="1040" y="228" text-anchor="middle" font-size="12" fill="#1c1a15">every world model</text>
+    <text x="1040" y="247" text-anchor="middle" font-size="12.5" fill="#1c1a15" font-family="ui-monospace, Menlo, monospace">E&#8242; : S &#8594; Z</text>
+    <text x="1040" y="266" text-anchor="middle" font-size="12" fill="#524b3f">factors through</text>
+    <text x="1040" y="286" text-anchor="middle" font-size="14" fill="#e0550f" font-weight="700" font-family="ui-monospace, Menlo, monospace">S/&#8776;</text>
+  </g>
+  <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+    <rect x="915" y="118" width="230" height="22" rx="11" fill="#1a1712"/>
+    <text x="1030" y="133.5" text-anchor="middle" font-size="11.5" fill="#f6eede">bisim_classification_factors</text>
+  </g>
+
+  <!-- SPECIALIZES vertical links -->
+  <g stroke="#b9b0a1" stroke-width="1.3" stroke-dasharray="3 4" fill="none">
+    <path d="M247,292 L247,470"/>
+    <path d="M415,268 L438,470"/>
+    <path d="M662,320 L662,430 L800,430 L800,466"/>
+    <path d="M1040,326 L1061,470"/>
+  </g>
+  <g font-family="ui-sans-serif, system-ui" font-size="9.5" fill="#9a9184">
+    <text x="196" y="432" text-anchor="middle">specializes</text>
+    <text x="404" y="432" text-anchor="middle">specializes</text>
+    <text x="757" y="424" text-anchor="middle">specializes</text>
+    <text x="1096" y="432" text-anchor="middle">specializes</text>
+  </g>
+
+  <!-- BOTTOM BAND -->
+  <!-- (p1) phase space -->
+  <g>
+    <rect x="172" y="472" width="150" height="128" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="247" y="494" text-anchor="middle" font-size="14" font-weight="600" fill="#524b3f">phase space</text>
+    <text x="247" y="510" text-anchor="middle" font-size="11.5" fill="#9a9184" font-family="ui-monospace, Menlo, monospace">(x, v)</text>
+    <g transform="translate(247,558)">
+      <line x1="-46" y1="0" x2="46" y2="0" stroke="#d9d0c0" stroke-width="1"/>
+      <line x1="0" y1="-32" x2="0" y2="32" stroke="#d9d0c0" stroke-width="1"/>
+      <ellipse cx="0" cy="0" rx="14" ry="10" fill="none" stroke="#9a9184" stroke-width="1.2"/>
+      <ellipse cx="0" cy="0" rx="26" ry="18" fill="none" stroke="#9a9184" stroke-width="1.2"/>
+      <ellipse cx="0" cy="0" rx="38" ry="26" fill="none" stroke="#9a9184" stroke-width="1.2"/>
+    </g>
+  </g>
+
+  <path d="M322,536 L360,536" fill="none" stroke="#524b3f" stroke-width="1.5" marker-end="url(#arrInk)"/>
+
+  <!-- (p2) target = energy -->
+  <g>
+    <rect x="362" y="484" width="164" height="104" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="444" y="508" text-anchor="middle" font-size="14" font-weight="600" fill="#524b3f">target = energy</text>
+    <line x1="380" y1="520" x2="508" y2="520" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="444" y="548" text-anchor="middle" font-size="13" fill="#1c1a15" font-family="ui-monospace, Menlo, monospace">E = &#189;v&#178; + &#189;&#969;&#178;x&#178;</text>
+    <text x="444" y="572" text-anchor="middle" font-size="10.5" fill="#9a9184">the single conserved readout</text>
+  </g>
+
+  <path d="M526,536 L560,536" fill="none" stroke="#524b3f" stroke-width="1.5" marker-end="url(#arrInk)"/>
+
+  <!-- (p3) approx = energy level-sets -->
+  <g>
+    <rect x="562" y="484" width="128" height="104" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="626" y="506" text-anchor="middle" font-size="13.5" font-weight="600" fill="#524b3f">&#8776;  =  level-sets</text>
+    <text x="626" y="521" text-anchor="middle" font-size="10.5" fill="#9a9184">of energy</text>
+    <g transform="translate(626,556)" fill="none" stroke="#9a9184" stroke-width="1.2">
+      <circle r="9"/><circle r="17"/><circle r="25"/>
+    </g>
+  </g>
+
+  <path d="M690,536 L706,536" fill="none" stroke="#524b3f" stroke-width="1.5" marker-end="url(#arrInk)"/>
+
+  <!-- (p4) INVARIANT CHART - physics hub, with the FROZEN CORNER (neutral / muted frame) -->
+  <g>
+    <rect x="708" y="466" width="234" height="150" rx="11" fill="#fffdf7" stroke="#9a9184" stroke-width="1.6"/>
+    <text x="825" y="490" text-anchor="middle" font-size="15" font-weight="700" fill="#6f675b">INVARIANT CHART</text>
+    <text x="825" y="506" text-anchor="middle" font-size="10.5" fill="#9a9184">physics hub &#183; S/&#8776; realized</text>
+    <line x1="726" y1="516" x2="924" y2="516" stroke="#e7dfd1" stroke-width="1"/>
+
+    <g>
+      <!-- frozen latent law: identity self-loop + snowflake, muted -->
+      <g transform="translate(760,556)">
+        <circle r="12" fill="#f0ece4" stroke="#9a9184" stroke-width="1.3"/>
+        <path d="M8,-8 C24,-20 24,10 9,7" fill="none" stroke="#9a9184" stroke-width="1.3" marker-end="url(#arrMute)"/>
+        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#6f675b" font-family="ui-monospace, Menlo, monospace">id</text>
+        <!-- 6-fold snowflake -->
+        <g stroke="#9a9184" stroke-width="1.4" stroke-linecap="round" transform="translate(31,-15)">
+          <line x1="0" y1="-8.5" x2="0" y2="8.5"/>
+          <line x1="-7.4" y1="-4.25" x2="7.4" y2="4.25"/>
+          <line x1="-7.4" y1="4.25" x2="7.4" y2="-4.25"/>
+          <g stroke-width="1.1">
+            <path d="M0,-8.5 l-2.2,2.4 M0,-8.5 l2.2,2.4"/>
+            <path d="M0,8.5 l-2.2,-2.4 M0,8.5 l2.2,-2.4"/>
+            <path d="M-7.4,-4.25 l-2.7,0 M-7.4,-4.25 l1.1,-2.9"/>
+            <path d="M7.4,4.25 l2.7,0 M7.4,4.25 l-1.1,2.9"/>
+            <path d="M-7.4,4.25 l-2.7,0 M-7.4,4.25 l1.1,2.9"/>
+            <path d="M7.4,-4.25 l2.7,0 M7.4,-4.25 l-1.1,-2.9"/>
+          </g>
+        </g>
+        <text x="-16" y="19" font-size="12" fill="#9a9184" font-family="ui-monospace, Menlo, monospace">P = id</text>
+        <line x1="-16.5" y1="9.5" x2="-8" y2="9.5" stroke="#9a9184" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+
+      <!-- frozen metric: discrete (isolated points, dashed) -->
+      <g transform="translate(882,556)">
+        <g fill="#9a9184">
+          <circle cx="-16" cy="-10" r="2.6"/>
+          <circle cx="16" cy="-10" r="2.6"/>
+          <circle cx="0" cy="12" r="2.6"/>
+        </g>
+        <g stroke="#c3bbad" stroke-width="1" stroke-dasharray="2 3" fill="none">
+          <line x1="-16" y1="-10" x2="16" y2="-10"/>
+          <line x1="16" y1="-10" x2="0" y2="12"/>
+          <line x1="0" y1="12" x2="-16" y2="-10"/>
+        </g>
+        <text x="0" y="30" text-anchor="middle" font-size="12" fill="#9a9184" font-family="ui-monospace, Menlo, monospace">metric discrete</text>
+      </g>
+    </g>
+
+    <text x="705" y="606" font-size="10.5" font-weight="600" fill="#7a7265">conserved &#8658; frozen: <tspan font-family="ui-monospace, Menlo, monospace" font-weight="700">P</tspan> = id, metric discrete</text>
+    <line x1="822" y1="597" x2="830" y2="597" stroke="#7a7265" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- hairline leaders binding the frozen corner to its two theorem chips -->
+  <g stroke="#b9b0a1" stroke-width="1" fill="none">
+    <path d="M774,617 L774,623"/>
+    <path d="M1010,617 L1010,623"/>
+  </g>
+  <g font-family="ui-monospace, 'SF Mono', Menlo, monospace">
+    <g>
+      <rect x="648" y="623" width="252" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="774" y="638" text-anchor="middle" font-size="10.5" fill="#f6eede">bisimilarity_pureKernel_of_conserved</text>
+    </g>
+    <g>
+      <rect x="904" y="623" width="238" height="21" rx="10.5" fill="#1a1712"/>
+      <text x="1023" y="638" text-anchor="middle" font-size="9.5" fill="#f6eede">pureKernel_map_quotientMk_of_conserved</text>
+    </g>
+  </g>
+
+  <path d="M942,522 L978,522" fill="none" stroke="#524b3f" stroke-width="1.5" marker-end="url(#arrInk)"/>
+
+  <!-- (p5) every faithful encoder refines the energy chart -->
+  <g>
+    <rect x="980" y="472" width="162" height="100" rx="10" fill="#fffdf7" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="1061" y="500" text-anchor="middle" font-size="12" fill="#1c1a15">every faithful</text>
+    <text x="1061" y="517" text-anchor="middle" font-size="12" fill="#1c1a15">encoder refines</text>
+    <text x="1061" y="534" text-anchor="middle" font-size="12" fill="#1c1a15">the energy chart</text>
+    <line x1="1000" y1="546" x2="1122" y2="546" stroke="#e7dfd1" stroke-width="1"/>
+    <text x="1061" y="562" text-anchor="middle" font-size="10.5" fill="#9a9184">universality, here on physics</text>
+  </g>
+</svg>
+            <figcaption>Declare the state space, targets, dynamics, and readout budget; the specification forces one canonical latent, the causal-state quotient that every world model factors through. The harmonic oscillator is one witness: where its targets are conserved, the latent law freezes to the identity and the metric to a discrete one, the interpretable corner of the general machine.</figcaption>
+          </figure>
           <div class="factline">
             <div class="fact"><strong>3</strong><span>obligations define the specification</span></div>
             <div class="fact"><strong>5</strong><span>levels, from readout to architecture</span></div>
@@ -355,7 +659,8 @@
               compression: the coarsest faithful representation, the <em>bisimulation quotient</em>
               of the state space, the partition of states into those that are genuinely different
               for prediction, the causal states. Not one option among many. The one the theory
-              names.
+              names. The construction assumes nothing about the domain: any state space, any target
+              family, any transition law, with no finiteness and nothing physical required.
             </p>
           </div>
 
@@ -414,6 +719,24 @@
                 <code>bisim_classification_factors</code>
               </div>
             </article>
+
+            <article class="ob">
+              <span class="tag">Instance · Conservation</span>
+              <h3>For a conserved system, the latent is the chart of its invariants.</h3>
+              <p>
+                The construction assumes no physics, yet physics is where its output turns
+                closed-form. When a deterministic dynamics conserves every declared target, the
+                forced latent is exactly the relation that holds when all the invariants agree, and
+                the induced transition law is the identity, since a conserved quantity cannot move.
+                The canonical world model of a conservative system is its chart of invariants under
+                trivial dynamics, with latent space, encoder, and law all read off the declarations.
+              </p>
+              <div class="formal">targets conserved by f&nbsp;&nbsp;⟹&nbsp;&nbsp;bisimilarity = ker(invariants),&nbsp; latent law = id</div>
+              <div class="handles">
+                <code>bisimilarity_pureKernel_of_conserved</code>
+                <code>pureKernel_map_quotientMk_of_conserved</code>
+              </div>
+            </article>
           </div>
 
           <div class="lead-claim">
@@ -432,11 +755,14 @@
           </div>
 
           <p class="note">
-            <strong>This gives a build order.</strong> Once the targets, the budget, and
-            the dynamics are declared, the representation is fixed up to relabeling. A team does not
-            search a space of candidate encoders and hope one is faithful; the theory hands them the
-            object to aim for, and the remaining work is to realize it in a trainable architecture,
-            the subject of the levels that follow.
+            <strong>Read as a tool, this is a compiler.</strong> Give it a state space, a target
+            family, and a dynamics law, and it returns the canonical latent: the encoder, the
+            descended targets, the transition law, and a proof that every faithful representation
+            factors through it. Latent-state design becomes synthesis under declared obligations, in
+            place of guessing what a network should preserve. The conserved case above is the
+            interpretable flagship; for any domain that declares targets and transitions, the same
+            construction returns the minimal latent state its role requires, and the levels that
+            follow give its geometry and the architectures that realize it.
           </p>
         </div>
       </section>
@@ -735,6 +1061,11 @@
               prediction horizons, and read it within a stated budget, each step a theorem rather
               than a heuristic. Read as an evaluation standard, the same theory is sharp: a proxy
               objective that passes carries no evidence about a quantity it is structurally blind to.
+              This is not another architecture to set beside the predictive, generative, and agentic
+              ones. It is the specification they are all measured against: declare the targets and the
+              budget, and one grammar says what a model must preserve, checks whether it does, and
+              names the guard that repairs it. It applies wherever a latent is claimed to stand in for
+              an external world, from robotics and driving to scientific modeling and agent memory.
               The clearest worked case is the family of latent self-supervised models, the JEPA-class
               systems that predict in representation space.
             </p>
@@ -825,6 +1156,188 @@
               the guard: the forced representation of Argument&nbsp;4 and the matched objective of
               Argument&nbsp;3.
             </p>
+          </div>
+
+          <p class="note">
+            <strong>The reach is general.</strong> The self-grading failure is not particular to
+            planning. Whenever a system reads its success from the same latent that discarded a
+            task-relevant quantity, it can pass its own test while failing the world. Latent
+            evaluation is not external verification, and the specification is what external
+            verification requires.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ PROOF INDEX ============ -->
+      <section id="index">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Proof index</p>
+            <h2>Every theorem, and the module it lives in.</h2>
+            <p>
+              The 65 results cited across this page, grouped by module and linked to source. Every
+              module is sorry-free and builds against a pinned Mathlib; the headline theorems depend
+              only on <code>propext</code>, <code>Classical.choice</code>, and <code>Quot.sound</code>.
+              The Verify button re-checks that each name here resolves to a real declaration.
+            </p>
+          </div>
+          <div class="proof-index">
+          <div class="pi-corpus">
+            <h3>The specification corpus</h3>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/EnergyNonRecovery.lean">WMSpec/EnergyNonRecovery.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/EnergyNonRecovery.lean"><code>approx_lipschitz_ineq</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/EnergyNonRecovery.lean"><code>energy_not_recoverable_from_position</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/EnergyNonRecovery.lean"><code>worldModel_latent_geometry_bound</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/NoLatentDynamics.lean">WMSpec/NoLatentDynamics.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/NoLatentDynamics.lean"><code>no_positionLatent_dynamics_of_nonstroboscopic</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/NoLatentDynamics.lean"><code>positionLatent_dynamics_iff_stroboscopic</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ObjectiveInvariance.lean">WMSpec/ObjectiveInvariance.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ObjectiveInvariance.lean"><code>invarianceMonoid</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ObjectiveInvariance.lean"><code>not_factorThrough_loss_of_invariance</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ObjectiveInvariance.lean"><code>not_factorThrough_of_collapse</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ObjectiveInvariance.lean"><code>objective_blindness</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedInvariance.lean">WMSpec/MatchedInvariance.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedInvariance.lean"><code>not_factorThrough_of_invariance</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MixedFamilies.lean">WMSpec/MixedFamilies.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MixedFamilies.lean"><code>blind_tests_zero_power</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MixedFamilies.lean"><code>invarianceMonoid_eq_iInf</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MixedFamilies.lean"><code>mixed_guard_exchange</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean">WMSpec/MatchedObjective.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>guards_invariant_of_matched</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>matched_invariance_characterization</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>matched_invariance_iff</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean">WMSpec/ForcingTheorem.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>SpecCongruences</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>bisim_classification_factors</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>bisim_mem</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>bisimilarity</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>forcing_theorem</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>le_bisimilarity</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>quotientDynamics</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>quotientDynamics_mk</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>quotientTarget</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/ForcingTheorem.lean"><code>specEncoder_ker_le</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean">WMSpec/BisimMetric.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bhattacharyya_le_mapPMF</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bisimMetric</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bisimMetric_comm</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bisimMetric_prices_tests</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bisimMetric_self</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>bisim_zero_one_step_power</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/BisimMetric.lean"><code>fisherRao_mapPMF_le</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/FisherRaoFinite.lean">WMSpec/FisherRaoFinite.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/FisherRaoFinite.lean"><code>finite_fisherRao_risk_bound</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean">WMSpec/Flow/FlowArchitecture.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>admissibleHorizons</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>admissibleSubgroup</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>kinematic_admissible_iff</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>latentStep_iff_factorsThrough</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>mem_admissibleHorizons</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/FlowArchitecture.lean"><code>neg_one_not_mem_collapse</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/OscillatorBinding.lean">WMSpec/Flow/OscillatorBinding.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/OscillatorBinding.lean"><code>oscillator_latentStep_iff</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/Flow/OscillatorBinding.lean"><code>oscillator_latentStep_iff_int_multiple</code></a>
+              </div>
+            </div>
+          </div>
+          <div class="pi-corpus">
+            <h3>Readout, forcing, and executed witnesses</h3>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ReadoutCharacterization.lean">TLT_Proofs/NonIdentifiability/ReadoutCharacterization.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ReadoutCharacterization.lean"><code>lipschitz_readout_iff</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ReadoutCharacterization.lean"><code>no_lipschitz_readout_iff</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/KernelLumpability.lean">TLT_Proofs/NonIdentifiability/KernelLumpability.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/KernelLumpability.lean"><code>latentKernel_iff_congruence</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ForcingTheorem.lean">TLT_Proofs/NonIdentifiability/ForcingTheorem.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ForcingTheorem.lean"><code>isWorldModel_iff_ker_isConforming</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ForcingTheorem.lean"><code>isWorldModel_quotientMk_bisimilarity</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/DerivedWorldModels.lean">TLT_Proofs/NonIdentifiability/DerivedWorldModels.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/DerivedWorldModels.lean"><code>bisimilarity_pureKernel_of_conserved</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/DerivedWorldModels.lean"><code>pureKernel_map_quotientMk_of_conserved</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean">TLT_Proofs/NonIdentifiability/ExecutedWitness.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>exec_close</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>exec_gap</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>exec_latent_gap</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>exec_latents_distinct</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>exec_sep</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>no_lipschitz_reading_of_executed_encoder</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>x₁_toReal</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>x₂_toDyadic</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/ExecutedWitness.lean"><code>x₂_toReal</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean">TLT_Proofs/NonIdentifiability/JepaBoundary.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>jepa_boundary_witness_predict</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>jepa_predict_cannot_recover_target</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>jepa_target_not_factorsThrough</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>jepa_target_not_identifiable</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>witness_collapse</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>witness_jepaLoss_computes</code></a>
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/TLT_Proofs/NonIdentifiability/JepaBoundary.lean"><code>witness_separated</code></a>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </section>

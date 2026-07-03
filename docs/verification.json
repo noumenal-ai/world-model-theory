@@ -1,18 +1,18 @@
 {
   "schema": 1,
-  "generatedBy": "ci",
-  "repo": "noumenal-ai/world-model-theory",
+  "generatedBy": "local",
+  "repo": "",
   "workflow": "verify.yml",
-  "commit": "e1252d476ddc18bc0b692a1db41494e5bc2d364d",
-  "timestamp": "2026-07-02T23:15:11Z",
-  "runUrl": "https://github.com/noumenal-ai/world-model-theory/actions/runs/28627537255",
+  "commit": "bf47178",
+  "timestamp": "2026-07-03T00:38:06Z",
+  "runUrl": "",
   "status": "pass",
   "checks": [
-    { "id": "chips",  "label": "Every cited theorem handle resolves", "status": "pass", "detail": "63 / 63 handles resolve to real declarations" },
-    { "id": "sorry",  "label": "No sorry / admit / native_decide", "status": "pass", "detail": "clean across 17 cited modules" },
+    { "id": "chips",  "label": "Every cited theorem handle resolves", "status": "pass", "detail": "65 / 65 handles resolve to real declarations" },
+    { "id": "sorry",  "label": "No sorry / admit / native_decide", "status": "pass", "detail": "clean across 18 cited modules" },
     { "id": "build",  "label": "lake build (clean compile)", "status": "attested", "detail": "compiles clean in the canonical Lean build (Mathlib · PhysLean · TorchLean)" },
     { "id": "axioms", "label": "Axiom footprint", "status": "attested", "detail": "depends only on propext, Classical.choice, Quot.sound (canonical build)" }
   ],
-  "chips": { "total": 63, "resolved": 63, "missing": [  ] },
-  "modules": 17
+  "chips": { "total": 65, "resolved": 65, "missing": [  ] },
+  "modules": 18
 }
