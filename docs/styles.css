@@ -256,3 +256,23 @@ section.tint { background: #f4ecdb; }
   font-size: 0.86rem; color: var(--ink-faint); line-height: 1.55;
   margin-top: 1rem; max-width: 54rem;
 }
+
+/* ---- claims card (the citable spot) ---- */
+.claims-card {
+  max-width: 54rem; margin: 0 0 3rem; padding: 1.9rem 2rem;
+  background: var(--panel); border: 1px solid var(--line);
+  border-left: 4px solid var(--accent); border-radius: 12px;
+}
+.claims-eyebrow {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 1rem;
+}
+.claims-body { font-size: 1.1rem; line-height: 1.66; color: var(--ink); margin: 0 0 1.5rem; }
+.claims-cite { border-top: 1px solid var(--line-soft); padding-top: 1.2rem; }
+.claims-cite-lead { font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 0.8rem; }
+.claims-cite pre {
+  margin: 0; overflow-x: auto; background: var(--code-bg); border-radius: 8px; padding: 0.95rem 1.1rem;
+}
+.claims-cite pre code {
+  background: none; color: var(--code-ink); font-size: 0.78rem; line-height: 1.55; padding: 0; white-space: pre;
+}

@@ -21,6 +21,7 @@
             <a href="#architecture">Architecture</a>
             <a href="#executable">Executable</a>
             <a href="#consequences">Consequences</a>
+            <a href="#new">What&rsquo;s new</a>
             <a href="#index">Proofs</a>
             <a href="paper/wmspec_v1.pdf">Paper</a>
           </nav>
@@ -1168,6 +1169,163 @@
         </div>
       </section>
 
+      <!-- ============ THE CLAIM + WHAT'S NEW ============ -->
+      <section id="new">
+        <div class="shell">
+          <div class="claims-card" id="claims">
+            <p class="claims-eyebrow">The claim</p>
+            <p class="claims-body">
+              &ldquo;World model&rdquo; is not a property a network has. It is a relation among three
+              things you must declare: a representation, the family of targets it has to serve, and
+              the readout budget you allow. Declare them, and the mathematics leaves exactly one
+              representation standing: the bisimulation quotient, the system&rsquo;s causal states
+              for that purpose, and every world model factors through it. I did not ask you to trust
+              that. I proved it in Lean&nbsp;4, axiom-clean and with no sorry, and it forces the
+              one-dimensional exchange constant between two guard families, the admissible-horizon
+              laws and the three-point physics spectrum, the nil-mask separation that removes the
+              independent-components hypothesis, the quotient-free forcing of bisimilarity, and the
+              stroboscopic dichotomy on formalized physics. Re-run it against the proof kernel, which
+              cannot be argued into agreeing with a false line, and if a single clause fails to
+              check, it is mine to answer for. It is falsifiable and it is public, and my name is on
+              it: cite it, check it, hold me to it.
+            </p>
+            <div class="claims-cite">
+              <p class="claims-cite-lead">If you want to hold me to this, cite it and check it against the kernel yourself:</p>
+              <pre><code>@misc{gupta2026worldmodel,
+  author       = {Dhruv Gupta},
+  title        = {The World-Model Specification: an invariance-forced theory of latent dynamics},
+  year         = {2026},
+  institution  = {Noumenal Research},
+  note         = {Machine-checked in Lean 4, axiom-clean, no sorry},
+  howpublished = {https://noumenal-ai.github.io/world-model-theory}
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <p class="eyebrow">What&rsquo;s new</p>
+            <h2>The parts that did not exist before.</h2>
+            <p>
+              Most of the theory reuses known tools with care. Some of it we had to make. These are
+              the results with no informal source we could find, several conjectured in the research
+              ledger and born already verified, each linked to its proof.
+            </p>
+          </div>
+
+          <div class="obligations">
+            <article class="ob">
+              <span class="tag">New · Exact law</span>
+              <h3>Two guards can trade exactly one number.</h3>
+              <p>
+                When two guard families act under a shared symmetry, the room for them to cancel and
+                hide a moved target is one-dimensional: a single shared constant, the data side up by
+                <code>c</code> and the law side down by <code>c</code>. Ask both to respond
+                monotonically and <code>c</code> is zero. Nothing weaker and nothing stronger holds.
+              </p>
+              <div class="formal">∃ c,&nbsp; ∑ λ&#8202;<sub>j</sub> ΔG<sup>&#8202;data</sup> = c&nbsp; ∧&nbsp; ∑ μ&#8202;<sub>i</sub> ΔG<sup>&#8202;law</sup> = &minus;c</div>
+              <div class="handles">
+                <code>mixed_guard_exchange</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">New · Structure</span>
+              <h3>The realizable prediction horizons are an algebra.</h3>
+              <p>
+                For any encoder against any flow, the horizons that admit a latent dynamics form a
+                submonoid of time, a subgroup when the state space is finite, and finiteness is
+                proved necessary. Read across physics, this invariant takes exactly three values, one
+                law sorting the architectures.
+              </p>
+              <div class="formal">admissibleHorizons E : AddSubmonoid T&nbsp;&nbsp;·&nbsp;&nbsp;{0} ⊂ (π/ω)ℤ ⊂ all of T</div>
+              <div class="handles">
+                <code>admissibleHorizons</code>
+                <code>admissibleSubgroup</code>
+                <code>neg_one_not_mem_collapse</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">New · Technique</span>
+              <h3>The empty case becomes the sharpest tool.</h3>
+              <p>
+                The empty mask constrains nothing. We invert that vacuity into an unconditional
+                separation at the prediction and guard boundary, which removes the
+                independent-components hypothesis that matched-objective results usually carry, and
+                localizes every richness assumption at the guard-versus-guard joint, exactly where it
+                is needed.
+              </p>
+              <div class="formal">g ∈ G(matched)&nbsp; ⟺&nbsp; g ∈ G(pred) ∧ ∀ j, g ∈ G(guard&#8202;<sub>j</sub>)&nbsp;&nbsp;·&nbsp;&nbsp;no richness hypothesis</div>
+              <div class="handles">
+                <code>matched_invariance_iff</code>
+                <code>matched_invariance_characterization</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">New · Proof</span>
+              <h3>Bisimilarity defined without its own classes.</h3>
+              <p>
+                The spec congruence is stated by equal mass on saturated sets, so the definition of
+                bisimilarity never mentions the classes it will later have. That lets the crux, that
+                the supremum of all spec congruences is itself one, close by a single induction over
+                the generated relation: the finite form of Larsen and Skou&rsquo;s union of
+                bisimulations.
+              </p>
+              <div class="formal">≈&nbsp;=&nbsp;⨆&#8202;{ spec congruences }&nbsp; ∈&nbsp; the same family&nbsp;&nbsp;·&nbsp;&nbsp;one EqvGen induction</div>
+              <div class="handles">
+                <code>SpecCongruences</code>
+                <code>bisim_mem</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">New · Physics</span>
+              <h3>A dichotomy proved on the real oscillator.</h3>
+              <p>
+                For PhysLean&rsquo;s literal harmonic oscillator, a latent transition law for the
+                position latent exists at the half-period lattice and nowhere else, and for the free
+                particle the admissible set collapses to a single point. What looks predictive at
+                stroboscopic sampling is aliasing, and this is a theorem about the formalized physics.
+              </p>
+              <div class="formal">(∃ latent step at t)&nbsp; ⟺&nbsp; sin(ω t) = 0&nbsp;&nbsp;·&nbsp;&nbsp;kinematics:&nbsp; t admissible ⟺ t = 0</div>
+              <div class="handles">
+                <code>positionLatent_dynamics_iff_stroboscopic</code>
+                <code>kinematic_admissible_iff</code>
+              </div>
+            </article>
+
+            <article class="ob">
+              <span class="tag">New · Machinery</span>
+              <h3>One proof that a guard reads what it names.</h3>
+              <p>
+                Guard families are unified as characterized objects: a value with a zero-iff property,
+                so &ldquo;the guard enforces the symmetry it names&rdquo; is proved once, for every
+                family. HSIC qualifies given a characteristic kernel; mutual information only under
+                side conditions at both points. The constant geometry-guard slot is provably
+                invariance-blind.
+              </p>
+              <div class="formal">CharacterizedGuard:&nbsp; a value with&nbsp; value = 0&nbsp; ⟺&nbsp; the named symmetry holds</div>
+              <div class="handles">
+                <code>CharacterizedGuard</code>
+                <code>constant_guard_invariant</code>
+              </div>
+            </article>
+          </div>
+
+          <p class="note">
+            <strong>And a set of firsts.</strong> First machine-checked forms, to our knowledge, of
+            the McShane readability characterization as a world-model theorem
+            (<code>lipschitz_readout_iff</code>), the finite Larsen&ndash;Skou forcing
+            (<code>forcing_theorem</code>), and the Fisher&ndash;Rao data-processing inequality by
+            per-fiber Cauchy&ndash;Schwarz (<code>fisherRao_mapPMF_le</code>). The finite
+            Fisher&ndash;Rao risk bound at the tight constant (<code>finite_fisherRao_risk_bound</code>)
+            surfaced a convention finding along the way: the standard verified transfer hook is
+            &#8467;<sup>1</sup>-typed, so composing it naively loses a factor of two.
+          </p>
+        </div>
+      </section>
+
       <!-- ============ PROOF INDEX ============ -->
       <section id="index">
         <div class="shell">
@@ -1175,7 +1333,7 @@
             <p class="eyebrow">Proof index</p>
             <h2>Every theorem, and the module it lives in.</h2>
             <p>
-              The 65 results cited across this page, grouped by module and linked to source. Every
+              The 67 results cited across this page, grouped by module and linked to source. Every
               module is sorry-free and builds against a pinned Mathlib; the headline theorems depend
               only on <code>propext</code>, <code>Classical.choice</code>, and <code>Quot.sound</code>.
               The Verify button re-checks that each name here resolves to a real declaration.
@@ -1228,6 +1386,18 @@
                 <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>guards_invariant_of_matched</code></a>
                 <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>matched_invariance_characterization</code></a>
                 <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MatchedObjective.lean"><code>matched_invariance_iff</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/GuardFamilies.lean">WMSpec/GuardFamilies.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/GuardFamilies.lean"><code>CharacterizedGuard</code></a>
+              </div>
+            </div>
+            <div class="pi-row">
+              <a class="pi-mod" href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MaskIndexedInvariance.lean">WMSpec/MaskIndexedInvariance.lean</a>
+              <div class="pi-chips">
+                <a href="https://github.com/noumenal-ai/world-model-theory/blob/main/WMSpec/MaskIndexedInvariance.lean"><code>constant_guard_invariant</code></a>
               </div>
             </div>
             <div class="pi-row">
